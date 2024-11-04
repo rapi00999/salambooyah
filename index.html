@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./loveTruck.css">
+    <link rel="stylesheet" href="./envelope.css">
+    <title>To my favorite person</title>
+</head>
+<body>
+    <div class="envelope-container">
+        <div class="envelope">
+            <div class="envelope__tab"></div>
+            <div class="envelope__letter">
+                <img src="img/iren3.jpg" class="love-photo">
+                <p>falling for you felt like hearing the most beautiful song for the first time, one that fills every silence 💖</p>
+            </div>
+            <div class="envelope--base"></div> 
+        </div>
+    </div>
+
+    <button id="playButton" class="music-button">
+        <i class="fas fa-music"></i> Play Song
+    </button>
+    <button class="mute-button">🔊</button>
+
+    <div id="bubbles" class="bubbles"></div>
+
+    <audio id="myAudio" src="Loverboy.mp3"></audio>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <div class="truck-container">
+        <div class="container">
+            <div class="ts">
+           <div class="box"></div>
+            <div class="front">
+                
+                <div class="light"></div>
+                <div class="trapezoid"></div>
+                <div class="pipe"></div>
+                <div class="pipe2"></div>
+                <img class="img1" src="https://i.gifer.com/5zoP.gif">
+                <img class="img2" src="https://i.gifer.com/5zoP.gif">
+                <img class="img3" src="https://i.gifer.com/5zoP.gif">
+                <img class="img4" src="https://i.gifer.com/5zoP.gif">
+                <img class="img5" src="https://i.gifer.com/5zoP.gif">
+                <img class="img6" src="https://i.gifer.com/5zoP.gif">
+                <img class="img7" src="https://i.gifer.com/5zoP.gif">
+                <img class="img8" src="https://i.gifer.com/5zoP.gif">
+                <img class="img9" src="https://i.gifer.com/5zoP.gif">
+                <img class="img10" src="https://i.gifer.com/5zoP.gif">
+                <img class="img11" src="https://i.gifer.com/5zoP.gif">
+                <div class="front1"></div>
+                <div class="front2"></div>
+                <div class="window"></div>
+                 <div class="hood"></div>    
+            </div>
+             <div class="tyre1">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+             <div class="tyre2">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+             <div class="tyre3">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+             <div class="tyre4">
+                <div class="r1"></div>
+                <div class="r2"></div>
+                <div class="r3"></div>
+                <div class="r4"></div>
+                <div class="r5"></div>
+                <div class="r6"></div>
+             </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    const musicButton = document.querySelector('.music-button');
+    const muteButton = document.querySelector('.mute-button');
+    const bubbles = document.querySelector('.bubbles');
+    const audio = new Audio('Loverboy.mp3');
+
+    let isMuted = false;
+    let isPlaying = false;
+
+    function createBubbles() {
+        if (!isPlaying) return;
+
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        
+        const img = document.createElement('img');
+        img.src = 'img/iren4.jpg';
+        
+        bubble.appendChild(img);
+        bubbles.appendChild(bubble);
+        
+        bubble.style.left = Math.random() * 90 + '%';
+        
+        setTimeout(() => {
+            bubble.remove();
+        }, 6000);
+    }
+
+    function startPlayback() {
+        if (!isPlaying) {
+            isPlaying = true;
+            audio.play().catch(error => {
+                console.log("Autoplay prevented:", error);
+            });
+            bubbles.classList.add('active');
+            
+            setInterval(createBubbles, 600);
+        }
+    }
+
+    musicButton.addEventListener('click', startPlayback);
+    musicButton.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startPlayback();
+    });
+
+    muteButton.addEventListener('click', () => {
+        isMuted = !isMuted;
+        audio.muted = isMuted;
+        muteButton.innerHTML = isMuted ? '🔇' : '🔊';
+    });
+
+    audio.volume = 5;
+    </script>
+</body>
+</html>
