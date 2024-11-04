@@ -101,6 +101,7 @@
 
     let isMuted = false;
     let isPlaying = false;
+    let bubbleInterval;
 
     function createBubbles() {
         if (!isPlaying) return;
@@ -110,11 +111,14 @@
         
         const img = document.createElement('img');
         img.src = 'iren4.jpg';
+        img.style.width = '100%';
+        img.style.height = '100%';
         
         bubble.appendChild(img);
         bubbles.appendChild(bubble);
         
-        bubble.style.left = Math.random() * 90 + '%';
+        const isMobile = window.innerWidth <= 768;
+        bubble.style.left = Math.random() * (isMobile ? 80 : 90) + '%';
         
         setTimeout(() => {
             bubble.remove();
@@ -129,15 +133,18 @@
             });
             bubbles.classList.add('active');
             
-            setInterval(createBubbles, 600);
+            if (bubbleInterval) {
+                clearInterval(bubbleInterval);
+            }
+            bubbleInterval = setInterval(createBubbles, 600);
         }
     }
 
     musicButton.addEventListener('click', startPlayback);
-    musicButton.addEventListener('touchstart', (e) => {
+    musicButton.addEventListener('touchend', (e) => {
         e.preventDefault();
         startPlayback();
-    });
+    }, false);
 
     muteButton.addEventListener('click', () => {
         isMuted = !isMuted;
